@@ -11,5 +11,5 @@ endfunction
 
 
 augroup Zim
-au BufNewFile,BufRead *.txt call Ftdetect_zim()
+au BufNewFile,BufRead *.zimw call Ftdetect_zim()
 augroup END

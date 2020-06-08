@@ -40,14 +40,14 @@ Usage
 =====
 
 ##### When you want to use Vim to edit your Zim note
-  Just open the `.txt` file.
+  Just open the `.zimw` file.
 
 ##### When you want to fetch informations stored in your NoteBooks
   `:ZimGrep ga` -> show all notes mentioning 'ga'  <br>
   `:ZimList bu` -> show all notes named 'something-bu'
 
 ##### When you want more
-  `:ZimNewNote Notes/Bu/Zo Meu` -> create new note(s) `Bu/Zo Meu.txt` titled 'Zo Meu' (subnote of 'Bu') <br>
+  `:ZimNewNote Notes/Bu/Zo Meu` -> create new note(s) `Bu/Zo Meu.zimw` titled 'Zo Meu' (subnote of 'Bu') <br>
   `:ZimList meu` `m<Down>`(select for move) `m`(move here) -> reorganize notes<br>
   `:ZimList zo` `d`(detect double) `D`(delete)-> remove a double<br>
   `:ZimCmd title` -> format the current line as a title (it shows the keybinding before)<br>
@@ -98,4 +98,7 @@ License : Public Domain
 * Add [>] "moving" checkbox
 * Now conceal url link (to only see the title)
 * Can fill a note with the content of a web page.
+
+#### version 1.2.00.01 2020-06-07 - petrohs <petrohs@gmail.com>
+* Ajuste personal para remplazar la ext de .txt a .zimw
 ```

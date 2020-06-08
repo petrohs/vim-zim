@@ -20,7 +20,7 @@ function! zim#editor#CreateHeader(...)
     else
         let l:timest2 = substitute(strftime("%z"),'\(+\d\d\)\(\d\d\)','\1:\2','')
     endif
-    let l:note_name=substitute(expand('%:t:s?.txt??'),'_',' ','g')
+    let l:note_name=substitute(expand('%:t:s?.zimw??'),'_',' ','g')
     if empty(l:note_name)
       let l:note_name=input( zim#util#gettext('note_name').' ? ')
     endif
@@ -277,13 +277,13 @@ function! s:getLinkPath(tgt)
       return strpart(a:tgt,5)
     endif
     let l:notebook=expand('%:p:s?'.g:zim_notebooks_dir.'[/]*??:s?/.*$??')
-    let l:inner_path=expand('%:p:s?'.g:zim_notebooks_dir.'[/]*??:s?^[^/]*[/]*??:s?.txt$?/?')
+    let l:inner_path=expand('%:p:s?'.g:zim_notebooks_dir.'[/]*??:s?^[^/]*[/]*??:s?.zimw$?/?')
     let l:tgt=substitute(
           \ substitute(
           \ substitute(
           \ substitute(a:tgt,':','/','g'),
           \ ' ','_','g'),
-          \ '\.txt$','','').'.txt',
+          \ '\.zimw$','','').'.zimw',
           \ '^\./', l:inner_path,'')
     let l:tgt=g:zim_notebooks_dir.'/'.l:notebook.'/'.l:tgt
   endif

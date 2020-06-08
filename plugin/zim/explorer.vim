@@ -31,16 +31,16 @@ function! zim#explorer#interactiveMove()
   let l:moving_tgt=zim#explorer#getLine()
   if len(b:current_id)
     if b:moving_id == '' 
-      if b:current_id =~ '.*\.txt$'
+      if b:current_id =~ '.*\.zimw'
         let b:moving_id=b:current_id
       endif
     else
-      let l:moving_tgt=substitute(l:moving_tgt,'/[^/]*\.\(txt\|zim\)$','','')
+      let l:moving_tgt=substitute(l:moving_tgt,'/[^/]*\.\(zimw\|zim\)$','','')
       let l:src_file=g:zim_notebook.'/'.b:moving_id
-      let l:src_dir=substitute(l:src_file,'\.txt$','','')
+      let l:src_dir=substitute(l:src_file,'\.zimw$','','')
       let l:src_name=substitute(l:src_dir,'.*/\([^/]\)','\1','')
       let l:tgt_dir=l:moving_tgt.'/'.l:src_name
-      let l:tgt_file=l:tgt_dir.'.txt'
+      let l:tgt_file=l:tgt_dir.'.zimw'
       if l:src_dir == l:moving_tgt || l:src_file == l:tgt_file
         echo zim#util#gettext('Cannot move a note into itself !')
       else
@@ -60,7 +60,7 @@ endfunction
 function! zim#explorer#interactiveRename()
   call zim#explorer#getLine()
   if len(b:current_id)
-      let l:tgt=substitute(b:current_id,'/[^/]*\.\(txt\|zim\)$','','')
+      let l:tgt=substitute(b:current_id,'/[^/]*\.\(zimw\|zim\)$','','')
       let l:note_name=zim#note#getFilenameFromName(
             \input( zim#util#gettext('note_name').' ? ') )
       call zim#note#Move(0,b:current_id,l:tgt.'/'.l:note_name) 
@@ -72,11 +72,11 @@ function! zim#explorer#interactiveNewNote(whereopen)
   let l:curwin=win_getid()
   call zim#explorer#getLine()
   if len(b:current_id)
-      let l:tgt=substitute(b:current_id,'\.\(txt\|zim\)$','','')
+      let l:tgt=substitute(b:current_id,'\.\(zimw\|zim\)$','','')
       let l:tgttab=split(l:tgt, '/')
       let l:sug=l:tgttab[-1]
       let l:tgt=join(l:tgttab[0:-2],'/')
-      " let l:tgt=substitute(b:current_id,'/[^/]*\.\(txt\|zim\)$','','')
+      " let l:tgt=substitute(b:current_id,'/[^/]*\.\(zimw\|zim\)$','','')
       let l:note_name=input( zim#util#gettext('note_name').' ? ',l:sug, 'customlist,zim#util#_CompleteNotes' )
       call zim#note#Create(a:whereopen,g:zim_notebook,l:tgt.'/'.l:note_name) 
       let l:newwin=win_getid()
@@ -159,7 +159,7 @@ function! zim#explorer#getNotesList(dir,filter,detect_doubles)
   if a:detect_doubles
     let l:fnames={}
     for l:i in range(len(l:ret))
-      let l:fname=substitute(l:ret[l:i],'.* : \([^:]*\.txt\)','\1','')
+      let l:fname=substitute(l:ret[l:i],'.* : \([^:]*\.zimw\)','\1','')
       if has_key(l:fnames, l:fname)
         let l:ret[l:i].=' |'
         let l:ret[l:fnames[l:fname][0]].=' |'

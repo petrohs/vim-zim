@@ -1,7 +1,7 @@
 function! zim#note#getFilenameFromName(name)
   let l:fname=substitute(a:name,'\([ !?:\*]\)\+','_','g')
   let l:fname=substitute(l:fname,"'",'_','g')
-  let l:fname=substitute(l:fname,'\(\.txt\)\?$','.txt','g')
+  let l:fname=substitute(l:fname,'\(\.zimw\)\?$','.zimw','g')
   return l:fname
 endfu
 
@@ -21,7 +21,7 @@ function! zim#note#Create(whereopen,dir,name)
   endif
 
   let l:note=a:dir.'/'.l:note_dir.'/'.zim#note#getFilenameFromName(l:note_name)
-  if l:note !~ g:zim_notebooks_dir.'/.*/.*.txt'
+  if l:note !~ g:zim_notebooks_dir.'/.*/.*.zimw'
     echomsg zim#util#gettext('note_out_of_notebook')
   else
     let l:dirs=split(substitute(
@@ -40,7 +40,7 @@ function! zim#note#Create(whereopen,dir,name)
           if !isdirectory(g:zim_notebooks_dir.'/'.l:path)
             call mkdir(g:zim_notebooks_dir.'/'.l:path,'p', 0700)
           endif
-          if !filereadable(g:zim_notebooks_dir.'/'.l:path.'.txt')
+          if !filereadable(g:zim_notebooks_dir.'/'.l:path.'.zimw')
             call zim#note#Create(a:whereopen,g:zim_notebooks_dir,l:path)
           endif
         endfor
@@ -131,13 +131,13 @@ endfunction
 
 "" Move a note and its sub notes
 function! zim#note#Move(copy,src,tgt)
-  let l:src_dir=g:zim_notebook.'/'.substitute(a:src,'\(/\|\.txt\)$','','')
+  let l:src_dir=g:zim_notebook.'/'.substitute(a:src,'\(/\|\.zimw\)$','','')
   let l:src_name=substitute(l:src_dir,'.*/\([^/]\)','\1','')
-  let l:src_file=l:src_dir.'.txt'
+  let l:src_file=l:src_dir.'.zimw'
   let l:tgt=substitute(a:tgt,'\([ :\*]\)\+','_','g').( a:tgt =~ '/$' ? l:src_name : '')
-  let l:tgt_dir=g:zim_notebook.'/'.substitute(l:tgt,'\(/\|\.txt\)$','','')
+  let l:tgt_dir=g:zim_notebook.'/'.substitute(l:tgt,'\(/\|\.zimw\)$','','')
   let l:tgt_name=substitute(l:tgt_dir,'.*/\([^/]\)','\1','')
-  let l:tgt_file=l:tgt_dir.'.txt'
+  let l:tgt_file=l:tgt_dir.'.zimw'
   if isdirectory(l:src_dir) && isdirectory(l:tgt_dir)
     echomsg printf(zim#util#gettext("Directory '%s' already exists"),l:tgt_dir)
     return 0
@@ -157,7 +157,7 @@ function! zim#note#Move(copy,src,tgt)
     let l:path=l:notebook
     for l:i in l:dirs
       let l:path.='/'.l:i
-      if !filereadable(g:zim_notebooks_dir.'/'.l:path.'.txt')
+      if !filereadable(g:zim_notebooks_dir.'/'.l:path.'.zimw')
         call zim#explorer#CreateNote(g:zim_notebooks_dir,l:path)
       endif
       if !isdirectory(g:zim_notebooks_dir.'/'.l:path)

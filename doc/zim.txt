@@ -455,7 +455,7 @@ In your vimrc file, add >
           \ a:whereopen,
           \ 'noswapfile',
           \ 1,
-          \ g:zim_notebooks_dir.'/Notes/TODO.txt')
+          \ g:zim_notebooks_dir.'/Notes/TODO.zimw')
 
     " find to first empty checkbox; find the title of the section it belong
     " and make this title to be the second line of the window
